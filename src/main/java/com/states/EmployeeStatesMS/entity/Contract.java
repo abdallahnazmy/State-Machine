@@ -4,28 +4,27 @@ import com.states.EmployeeStatesMS.enums.ContractType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "APP_CONTRACT")
 public class Contract {
 
+    public Contract() {
+        this.startDate = LocalDateTime.now();
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @NotNull
-    private LocalDate startDate;
-
+    private LocalDateTime startDate;
+    @Enumerated(EnumType.STRING)
     @NotNull
     private ContractType contractType;
-
     @NotNull
     private Integer salary;
-
-    @OneToOne(mappedBy = "contract",cascade = CascadeType.REMOVE)
-    private Employee employee;
 
     public Long getId() {
         return id;
@@ -35,11 +34,11 @@ public class Contract {
         this.id = id;
     }
 
-    public LocalDate getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -57,13 +56,5 @@ public class Contract {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
     }
 }

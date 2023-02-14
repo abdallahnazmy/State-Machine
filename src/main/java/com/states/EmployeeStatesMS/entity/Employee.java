@@ -16,26 +16,21 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @NotNull
     private String firstName;
-
     @NotNull
     private String lastName;
     @NotNull
     @NumberFormat
     private Integer age;
-
     @NotNull
-    @NumberFormat
-    private Integer number;
-
+    private String number;
     @NotNull
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "contract_id", referencedColumnName = "id")
     private Contract contract;
-
     @NotNull
+    @Enumerated(EnumType.STRING)
     private EmployeeState employeeState;
 
     public Long getId() {
@@ -70,11 +65,11 @@ public class Employee {
         this.age = age;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -93,5 +88,4 @@ public class Employee {
     public void setEmployeeState(EmployeeState employeeState) {
         this.employeeState = employeeState;
     }
-
 }
