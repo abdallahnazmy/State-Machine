@@ -3,28 +3,28 @@ package com.states.EmployeeStatesMS.entity;
 import com.states.EmployeeStatesMS.enums.ContractType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "APP_CONTRACT")
 public class Contract {
 
-    public Contract() {
-        this.startDate = LocalDateTime.now();
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Temporal(TemporalType.TIMESTAMP)
-    @NotNull
-    private LocalDateTime startDate;
+
+
     @Enumerated(EnumType.STRING)
     @NotNull
     private ContractType contractType;
     @NotNull
     private Integer salary;
+
+    private LocalDateTime creationDate;
+
+    public Contract() {
+        this.creationDate = LocalDateTime.now();
+    }
 
     public Long getId() {
         return id;
@@ -32,14 +32,6 @@ public class Contract {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
     }
 
     public ContractType getContractType() {
@@ -56,5 +48,19 @@ public class Contract {
 
     public void setSalary(Integer salary) {
         this.salary = salary;
+    }
+
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
+    public boolean validateContract() {
+        return this.contractType != null &&
+                this.salary != null;
     }
 }

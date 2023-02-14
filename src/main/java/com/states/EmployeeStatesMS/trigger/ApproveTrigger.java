@@ -4,11 +4,11 @@ import com.states.EmployeeStatesMS.entity.Employee;
 import com.states.EmployeeStatesMS.state.InCheckState;
 import com.states.EmployeeStatesMS.state.State;
 
-public class ApproveEvent implements EventTrigger {
+public class ApproveTrigger implements EventTrigger {
 
     private final State inCheckState;
 
-    public ApproveEvent() {
+    public ApproveTrigger() {
         this.inCheckState = new InCheckState();
     }
 

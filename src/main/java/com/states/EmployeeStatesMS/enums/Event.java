@@ -1,5 +1,5 @@
 package com.states.EmployeeStatesMS.enums;
 
-public enum StateEvent {
+public enum Event {
     BEGIN_CHECK, APPROVE, UNAPPROVE, ACTIVATE
 }

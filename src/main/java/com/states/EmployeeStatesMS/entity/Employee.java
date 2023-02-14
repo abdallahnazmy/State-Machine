@@ -3,7 +3,10 @@ package com.states.EmployeeStatesMS.entity;
 import com.states.EmployeeStatesMS.enums.EmployeeState;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "APP_EMPLOYEE")
@@ -24,14 +27,20 @@ public class Employee {
     @NumberFormat
     private Integer age;
     @NotNull
-    private String number;
+    @Column(unique = true)
+    private String phoneNumber;
+
     @NotNull
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "contract_id", referencedColumnName = "id")
-    private Contract contract;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate startDate;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private EmployeeState employeeState;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "contract_id", referencedColumnName = "id")
+    private Contract contract;
 
     public Long getId() {
         return id;
@@ -66,11 +75,27 @@ public class Employee {
     }
 
     public String getNumber() {
-        return number;
+        return phoneNumber;
     }
 
     public void setNumber(String number) {
-        this.number = number;
+        this.phoneNumber = number;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public EmployeeState getEmployeeState() {
+        return employeeState;
+    }
+
+    public void setEmployeeState(EmployeeState employeeState) {
+        this.employeeState = employeeState;
     }
 
     public Contract getContract() {
@@ -81,11 +106,11 @@ public class Employee {
         this.contract = contract;
     }
 
-    public EmployeeState getEmployeeState() {
-        return employeeState;
-    }
-
-    public void setEmployeeState(EmployeeState employeeState) {
-        this.employeeState = employeeState;
+    public boolean validateEmployee() {
+        return this.firstName != null
+                && this.lastName != null
+                && this.age != null
+                && this.phoneNumber != null
+                && this.contract != null;
     }
 }

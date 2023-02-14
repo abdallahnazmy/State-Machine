@@ -8,4 +8,8 @@ public interface State {
     void getNextState();
 
     EmployeeState get();
+
+    default void throwInvalidOperation(EmployeeState employeeState) {
+        throw new UnsupportedOperationException(String.format("This operation is not allowed for current state %s", employeeState));
+    }
 }

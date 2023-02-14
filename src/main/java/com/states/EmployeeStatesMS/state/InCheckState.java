@@ -12,7 +12,7 @@ public class InCheckState implements State {
 
     @Override
     public void getPreviousState() {
-        throw new UnsupportedOperationException(String.format("This operation is not allowed for state %s", currentState));
+        throwInvalidOperation(currentState);
     }
 
     @Override

@@ -4,11 +4,11 @@ import com.states.EmployeeStatesMS.entity.Employee;
 import com.states.EmployeeStatesMS.state.AddedState;
 import com.states.EmployeeStatesMS.state.State;
 
-public class BeginCheckEvent implements EventTrigger {
+public class BeginCheckTrigger implements EventTrigger {
 
     private final State addedState;
 
-    public BeginCheckEvent() {
+    public BeginCheckTrigger() {
         this.addedState = new AddedState();
     }
 
