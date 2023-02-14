@@ -1,24 +1,17 @@
 package com.states.EmployeeStatesMS.trigger;
 
 import com.states.EmployeeStatesMS.entity.Employee;
-import com.states.EmployeeStatesMS.state.AddedState;
-import com.states.EmployeeStatesMS.state.State;
+import com.states.EmployeeStatesMS.enums.EmployeeState;
+import com.states.EmployeeStatesMS.enums.Event;
 
 public class BeginCheckTrigger implements EventTrigger {
 
-    private final State addedState;
-
-    public BeginCheckTrigger() {
-        this.addedState = new AddedState();
-    }
-
     @Override
-    public void execute(Employee employee) {
-        if (addedState.get().equals(employee.getEmployeeState())) {
-            addedState.getNextState();
-            employee.setEmployeeState(addedState.get());
+    public void changeState(Employee employee) {
+        if (employee.getEmployeeState().equals(EmployeeState.ADDED)) {
+            employee.setEmployeeState(EmployeeState.IN_CHECK);
         } else {
-            throw new UnsupportedOperationException(String.format("Invalid operation for state %s", employee.getEmployeeState()));
+            throwUnsupportedTriggerException(Event.BEGIN_CHECK, employee);
         }
     }
 }

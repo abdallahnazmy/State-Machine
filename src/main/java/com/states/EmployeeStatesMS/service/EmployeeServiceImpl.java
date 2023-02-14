@@ -1,7 +1,6 @@
 package com.states.EmployeeStatesMS.service;
 
 import com.states.EmployeeStatesMS.entity.Employee;
-import com.states.EmployeeStatesMS.enums.Event;
 import com.states.EmployeeStatesMS.repository.EmployeeRepository;
 import com.states.EmployeeStatesMS.trigger.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,30 +35,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee updateEmployeeState(Event event, Long id) throws Exception {
-
+    public Employee updateEmployeeState(EventTrigger eventTrigger, Long id) throws Exception {
         Optional<Employee> employee = employeeRepository.findById(id);
         if (!employee.isPresent()) {
             throw new Exception(String.format("No employee found for id %d ", id));
         }
-        EventTrigger eventTrigger;
-        switch (event) {
-            case BEGIN_CHECK:
-                eventTrigger = new BeginCheckTrigger();
-                break;
-            case APPROVE:
-                eventTrigger = new ApproveTrigger();
-                break;
-            case UNAPPROVE:
-                eventTrigger = new UnapproveTrigger();
-                break;
-            case ACTIVATE:
-                eventTrigger = new ActivateTrigger();
-                break;
-            default:
-                throw new UnsupportedOperationException(String.format("Invalid event %s", event));
+        if (eventTrigger == null) {
+            throw new Exception("Event type came from the request as null");
         }
-        eventTrigger.execute(employee.get());
+        eventTrigger.changeState(employee.get());
         return employeeRepository.save(employee.get());
     }
 }

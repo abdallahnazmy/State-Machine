@@ -1,24 +1,16 @@
 package com.states.EmployeeStatesMS.trigger;
 
 import com.states.EmployeeStatesMS.entity.Employee;
-import com.states.EmployeeStatesMS.state.ApprovedState;
-import com.states.EmployeeStatesMS.state.State;
+import com.states.EmployeeStatesMS.enums.EmployeeState;
+import com.states.EmployeeStatesMS.enums.Event;
 
 public class UnapproveTrigger implements EventTrigger {
-
-    private final State approvedState;
-
-    public UnapproveTrigger() {
-        this.approvedState = new ApprovedState();
-    }
-
     @Override
-    public void execute(Employee employee) {
-        if (approvedState.get().equals(employee.getEmployeeState())) {
-            approvedState.getPreviousState();
-            employee.setEmployeeState(approvedState.get());
+    public void changeState(Employee employee) {
+        if (employee.getEmployeeState().equals(EmployeeState.APPROVED)) {
+            employee.setEmployeeState(EmployeeState.IN_CHECK);
         } else {
-            throw new UnsupportedOperationException(String.format("Invalid operation for state %s", employee.getEmployeeState()));
+            throwUnsupportedTriggerException(Event.UNAPPROVE, employee);
         }
     }
 }

@@ -1,13 +1,14 @@
 package com.states.EmployeeStatesMS.controller;
 
+import com.states.EmployeeStatesMS.model.TriggerRequest;
 import com.states.EmployeeStatesMS.entity.Employee;
-import com.states.EmployeeStatesMS.enums.Event;
 import com.states.EmployeeStatesMS.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequestMapping("/employee")
@@ -27,7 +28,10 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public ResponseEntity<Employee> updateEmployeeState(@RequestParam Event event, @RequestParam @NumberFormat Long id) throws Exception {
-        return new ResponseEntity<Employee>(employeeService.updateEmployeeState(event, id), HttpStatus.OK);
+    public ResponseEntity<Employee> updateEmployeeState(@RequestBody TriggerRequest triggerRequest) throws Exception {
+        return new ResponseEntity<Employee>(employeeService.updateEmployeeState(triggerRequest.getEvent()
+                , triggerRequest.getId())
+                , HttpStatus.OK);
+
     }
 }
