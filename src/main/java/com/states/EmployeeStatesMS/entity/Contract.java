@@ -60,7 +60,7 @@ public class Contract {
     }
 
     public boolean validateContract() {
-        return this.contractType != null &&
+        return (this.contractType != null) &&
                 this.salary != null;
     }
 }

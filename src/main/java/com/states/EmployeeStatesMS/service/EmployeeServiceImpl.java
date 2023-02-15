@@ -21,6 +21,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (!employee.validateEmployee()) {
             throw new Exception("Employee data is incomplete!");
         }
+        Long contractId = employee.getContract().getId();
+
+        if (!contractService.getContract(contractId).isPresent()) {
+            throw new Exception(String.format("No contract found for id %d", contractId));
+        }
 
         return employeeRepository.save(employee);
     }

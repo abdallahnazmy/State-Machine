@@ -111,6 +111,6 @@ public class Employee {
                 && this.lastName != null
                 && this.age != null
                 && this.phoneNumber != null
-                && this.contract != null;
+                && this.contract.getId() != null;
     }
 }

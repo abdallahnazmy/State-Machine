@@ -5,6 +5,7 @@ import com.states.EmployeeStatesMS.repository.ContractRepository;
 import com.states.EmployeeStatesMS.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.Optional;
 
 @Service
 public class ContractSerciceImpl implements ContractService {
@@ -24,7 +25,11 @@ public class ContractSerciceImpl implements ContractService {
     }
 
     @Override
-    public Contract getContract(Long id) {
-        return contractRepository.findById(id).get();
+    public Optional<Contract> getContract(Long id) throws Exception {
+        Optional<Contract> contract = contractRepository.findById(id);
+        if (!contract.isPresent()) {
+            throw new Exception(String.format("No contract found for id %d", id));
+        }
+        return contractRepository.findById(id);
     }
 }
