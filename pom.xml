@@ -71,6 +71,7 @@
                 <version>2.5.7</version>
             </plugin>
         </plugins>
+        <finalName>employee-states-ms</finalName>
     </build>
 
 </project>
