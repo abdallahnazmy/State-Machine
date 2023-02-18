@@ -1,6 +1,7 @@
 Author: Abdallah Nazmy
 
 Note for readers: you can read the EmployeeStatesMs-guide.pdf (contains the same info here but in pdf format)
+Other note: The project conatins a test package that tests the controller/service/repository layers
 
 EmployeeStatesMs
 
