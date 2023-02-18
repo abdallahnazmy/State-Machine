@@ -25,7 +25,7 @@ services:
         - POSTGRES_DB=statedb
       healthcheck:
         test: ["CMD-SHELL","pg_isready -U postgres"]
-        interval: 10s
+        interval: 60s
         timeout: 5s
         retries: 5
 
