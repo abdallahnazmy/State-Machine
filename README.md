@@ -82,7 +82,7 @@ Note: the dockerized project will use postgress database from a docker image
 NOTE 1: the project contains a dockerfile located at the root of the application, it will specify how to the image of the project will be generated
 Note 2: the project also contains a docker-compose.yml file located at src/main/docker. This file contains configuration for the postgres image (ports exposed, environment variables,…etc). Also has the configuration for the API image itself (defining datasources, exposing ports and making the api dependent on the database image service)
 
-3.	Run mvn install to create jar file of the project (will be named employee-states-ms.jar) and found in the target folder
+3.	Make sure mvaen is intalled on your machine and in project terminal Run "mvn install -DskipTests" to create jar file (skipping test because main application tests will fail) of the project (will be named employee-states-ms.jar) and found in the target folder
 4.	Run command (from root project path) “docker build -t  employee-states-ms.jar .” to build a docker image of the project
 Now we’re all set with the project docker image and the postgres image , let’s run the project from docker
 5.	Open a terminal with the path set to src/main/docker and run the command “docker compose up -d” to run the container from the docker-compose.yml file in detached mode.
